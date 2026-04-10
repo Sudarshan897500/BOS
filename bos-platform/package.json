@@ -1,0 +1,34 @@
+{
+  "name": "bos-platform",
+  "version": "1.0.0",
+  "description": "Composable Backend Operating System - Build production-grade backends rapidly",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "backend",
+    "low-code",
+    "workflow",
+    "multi-tenant",
+    "platform"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^6.0.2"
+  }
+}
