@@ -1,6 +1,6 @@
 /**
  * @fileoverview Application Entry Point
- * @description Main server file with graceful shutdown handling
+ * @description Main server file with graceful shutdown handling and distributed system initialization
  */
 
 import 'reflect-metadata'; // Required for typedi decorators
@@ -8,12 +8,30 @@ import express from 'express';
 import config from './config';
 import logger from './utils/logger';
 import loaders from './loaders';
+import { RedisClient } from './distributed/RedisClient';
+import { RateLimiter } from './security/RateLimiter';
+import { BackpressureHandler } from './resilience/BackpressureHandler';
 
 async function startServer() {
   const app = express();
 
   try {
-    // Initialize all loaders
+    // Initialize Redis connection for distributed state
+    const redisClient = RedisClient.getInstance();
+    await redisClient.connect();
+    logger.info('✌️ Redis connection established');
+
+    // Apply global rate limiting middleware
+    const rateLimiter = RateLimiter.getInstance();
+    app.use(rateLimiter.getMiddleware());
+    logger.info('✌️ Rate limiter enabled');
+
+    // Apply backpressure handling middleware
+    const backpressureHandler = BackpressureHandler.getInstance();
+    app.use(backpressureHandler.middleware());
+    logger.info('✌️ Backpressure handler enabled');
+
+    // Initialize all loaders (MongoDB, DI, Express routes, etc.)
     await loaders(app);
 
     // Start HTTP server
@@ -27,8 +45,18 @@ async function startServer() {
 ║   Port: ${config.server.port.toString().padEnd(50)}║
 ║   Host: ${config.server.host.padEnd(50)}║
 ║   Database: ${config.database.name.padEnd(46)}║
+║   Redis: ${config.redisUrl.padEnd(49)}║
 ║                                                           ║
 ║   ✌️ Ready to accept connections                          ║
+║                                                           ║
+║   Production Features Enabled:                            ║
+║   ✓ Distributed Locking (Redlock)                         ║
+║   ✓ Idempotency Management                                ║
+║   ✓ Safe Expression Engine (vm2)                          ║
+║   ✓ Transaction Support                                   ║
+║   ✓ Rate Limiting                                         ║
+║   ✓ Backpressure Handling                                 ║
+║   ✓ Circuit Breakers                                      ║
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
       `);
@@ -42,6 +70,10 @@ async function startServer() {
         logger.info('✌️ HTTP server closed');
         
         try {
+          // Close Redis connection
+          await redisClient.disconnect();
+          logger.info('✌️ Redis connection closed');
+          
           // Close MongoDB connection
           await import('mongoose').then(m => m.connection.close());
           logger.info('✌️ MongoDB connection closed');
