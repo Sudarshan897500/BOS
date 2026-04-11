@@ -1,3 +1,4 @@
+import { Container } from 'typedi';
 import rateLimit from 'express-rate-limit';
 import RedisStore from 'rate-limit-redis';
 import { RedisClient } from '../distributed/RedisClient';
@@ -12,7 +13,7 @@ export class RateLimiter {
   private limiter: RequestHandler;
 
   private constructor() {
-    const redisClient = RedisClient.getInstance().getClient();
+    const redisClient = Container.get(RedisClient).getClient();
 
     // Create Redis-backed rate limiter
     this.limiter = rateLimit({
@@ -75,7 +76,7 @@ export class RateLimiter {
     message?: any;
     prefix?: string;
   }): RequestHandler {
-    const redisClient = RedisClient.getInstance().getClient();
+    const redisClient = Container.get(RedisClient).getClient();
     const prefix = options.prefix || 'ratelimit:custom:';
 
     return rateLimit({

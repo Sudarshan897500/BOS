@@ -1,3 +1,4 @@
+import { Service } from 'typedi';
 import { createClient, RedisClientType } from 'redis';
 import { config } from '../config';
 
@@ -5,12 +6,12 @@ import { config } from '../config';
  * Singleton Redis Client with Connection Pooling
  * Provides distributed state management for the BOS Platform
  */
+@Service()
 export class RedisClient {
-  private static instance: RedisClient;
   private client: RedisClientType;
   private isConnected: boolean = false;
 
-  private constructor() {
+  constructor() {
     this.client = createClient({
       url: config.redisUrl,
       socket: {
@@ -43,13 +44,6 @@ export class RedisClient {
     });
   }
 
-  public static getInstance(): RedisClient {
-    if (!RedisClient.instance) {
-      RedisClient.instance = new RedisClient();
-    }
-    return RedisClient.instance;
-  }
-
   public async connect(): Promise<void> {
     if (!this.isConnected) {
       await this.client.connect();
@@ -61,6 +55,22 @@ export class RedisClient {
       await this.client.quit();
       this.isConnected = false;
     }
+  }
+
+  public async get(key: string): Promise<string | null> {
+    return await this.client.get(key);
+  }
+
+  public async set(key: string, value: string): Promise<void> {
+    await this.client.set(key, value);
+  }
+
+  public async setex(key: string, ttl: number, value: string): Promise<void> {
+    await this.client.setEx(key, ttl, value);
+  }
+
+  public async del(key: string): Promise<void> {
+    await this.client.del(key);
   }
 
   public getClient(): RedisClientType {

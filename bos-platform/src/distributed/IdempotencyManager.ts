@@ -1,3 +1,4 @@
+import { Container } from 'typedi';
 import { RedisClient } from './RedisClient';
 
 /**
@@ -10,7 +11,7 @@ export class IdempotencyManager {
   private readonly IDEMPOTENCY_PREFIX = 'idempotency:';
 
   constructor() {
-    this.redis = RedisClient.getInstance().getClient();
+    this.redis = Container.get(RedisClient).getClient();
   }
 
   /**

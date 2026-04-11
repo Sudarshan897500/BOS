@@ -1,3 +1,4 @@
+import { Container } from 'typedi';
 /**
  * @fileoverview Application Entry Point
  * @description Main server file with graceful shutdown handling and distributed system initialization
@@ -17,7 +18,7 @@ async function startServer() {
 
   try {
     // Initialize Redis connection for distributed state
-    const redisClient = RedisClient.getInstance();
+    const redisClient = Container.get(RedisClient);
     await redisClient.connect();
     logger.info('✌️ Redis connection established');
 

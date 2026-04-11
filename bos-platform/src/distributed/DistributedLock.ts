@@ -1,3 +1,4 @@
+import { Container } from 'typedi';
 import { RedisClient } from './RedisClient';
 import Redlock, { Lock } from 'redlock';
 
@@ -10,7 +11,7 @@ export class DistributedLock {
   private readonly DEFAULT_TTL = 10000; // 10 seconds
 
   constructor() {
-    const redisClient = RedisClient.getInstance().getClient();
+    const redisClient = Container.get(RedisClient).getClient();
     this.redlock = new Redlock([redisClient as any], {
       driftFactor: 0.01,
       retryCount: 3,
