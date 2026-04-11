@@ -1,0 +1,53 @@
+{
+  "name": "bos-platform",
+  "version": "1.0.0",
+  "description": "Composable Backend Operating System - Build production-grade backends rapidly",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "backend",
+    "low-code",
+    "workflow",
+    "multi-tenant",
+    "platform"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "@redis/client": "^5.11.0",
+    "@types/express": "^5.0.6",
+    "@types/winston": "^2.4.4",
+    "crypto-js": "^4.2.0",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.2",
+    "express-winston": "^4.2.0",
+    "ioredis": "^5.10.1",
+    "mongoose": "^9.4.1",
+    "rate-limit-redis": "^4.3.1",
+    "redis": "^5.11.0",
+    "redlock": "^5.0.0-beta.2",
+    "reflect-metadata": "^0.2.2",
+    "typedi": "^0.10.0",
+    "uuid": "^13.0.0",
+    "vm2": "^3.10.5",
+    "winston": "^3.19.0"
+  }
+}
