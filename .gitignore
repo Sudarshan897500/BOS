@@ -1,43 +1,145 @@
-```
+# Examples
+
+# Project specific
+bos-platform/dist/
+bos-platform/build/
+bos-platform/node_modules/
+
 # Dependencies
 node_modules/
-
-# Build artifacts
-dist/
-build/
-target/
-
-# Python cache
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Virtual environments
-venv/
-.venv/
-.env
-.env.local
-.env.*
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Logs
 *.log
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# OS files
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+.dist
+
+# Gatsby files
+.cache/
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file for the editor
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/versions
+.yarn/metadata
+.yarn/state.yml
+
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.out
+*.dll
+*.so
+*.a
+*.class
+*.jar
+*.war
+*.ear
+*.swf
+*.lib
+*.dylib
+*.exe
+*.msi
+*.deb
+*.rpm
+
+# Dependencies
+.venv/
+venv/
+.env
+.env.local
+.env.*
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.coverage.*
+.nox/
+.hypothesis/
+node_modules/
+target/
+.gradle/
+build/
+dist/
+out/
 .DS_Store
 Thumbs.db
+*.tmp
+*.swp
+*.swo
+.vscode/
+.idea/
 
 # Compressed files
 *.zip
@@ -62,4 +164,6 @@ Thumbs.db
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-```
+
+# Original rules preserved
+*.log
